@@ -7,7 +7,7 @@ Abstract:
 % Clear console and workspace
 clear, clc;
 % Format (short: 5; long: 16; e: always exponential; eng: engineering format (10.56e(+-22)); g: automatic)
-format long;
+format long g;
 
 % Non-zero if running on Octave
 isOctave = exist('OCTAVE_VERSION', 'builtin');
