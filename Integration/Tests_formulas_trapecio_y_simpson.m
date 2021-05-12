@@ -39,7 +39,7 @@ fprintf("Evaluated between %G and %G\n\n", a, b);
 
 % Checks and user-proofing
 if ( nodes < 2 )
-  error("Nodes must be greater or equal than 3");
+  error("Nodes must be greater or equal than 2");
 end
 
 % Trapezium
