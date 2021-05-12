@@ -8,10 +8,10 @@ clear, clc;
 format long g;
 
 % Runtime config variables
-nodes = 1e4;
-calculate_single_node_number = true;
-  % True: calculates just with the given number of nodes (recommended)
-  % False: calculates for nodes = 2:[1 or 2]:nodes (not recommended, uses up too much memory)
+subintervals = 1e4;
+single_calculation = true;
+  % True: calculates just with the given number of subintervals (recommended)
+  % False: calculates for subintervals = 2:[1 or 2]:subintervals (not recommended, uses up too much memory)
 show_sols = false;
   % Lets you display all calculated aproximations (not recommended, used for debugging)
 
@@ -27,9 +27,9 @@ true_value = atan(b) - atan(a);
 best_trapezium = 0;
 best_simpson = 0;
 
-if (~calculate_single_node_number)
-  sols_trapezium = NaN(nodes-1, 2);
-  sols_simpson = NaN(nodes/2-1, 2);
+if (~single_calculation)
+  sols_trapezium = NaN(subintervals-1, 2);
+  sols_simpson = NaN(subintervals/2-1, 2);
 end
 
 % Show config
@@ -38,20 +38,20 @@ disp(f);
 fprintf("Evaluated between %G and %G\n\n", a, b);
 
 % Checks and user-proofing
-if ( nodes < 2 )
-  error("Nodes must be greater or equal than 2");
+if ( subintervals < 2 )
+  error("subintervals must be greater or equal than 2");
 end
 
 % Trapezium
 fprintf("Trapezium: start of calculations");
-if (calculate_single_node_number)
-  x = linspace(a, b, nodes);
+if (single_calculation)
+  x = linspace(a, b, subintervals);
   y = f(x);
 
   best_trapezium = formula_trapezium_composite(x(2) - x(1), y);
 
 else
-  for i = 2:nodes
+  for i = 2:subintervals
 
     x = linspace(a, b, i);
     y = f(x);
@@ -67,24 +67,24 @@ else
   end % !for
   best_trapezium = sols_trapezium(end);
 end % !if
-fprintf("Trapezium with %G nodes: %G\n", nodes, best_trapezium);
+fprintf("Trapezium with %G subintervals: %G\n", subintervals, best_trapezium);
 fprintf("Trapezium: end of calculations");
 
 % Simpson
 fprintf("Simpson: start of calculations");
-if (calculate_single_node_number)
-  nodes_simpson = nodes - mod(nodes, 2);
-  if (mod(nodes, 2) ~= 0)
-    fprintf("Warning: not using a multiple-of-2 number of nodes, now using %G nodes to execute Simpson properly", nodes_simpson );
+if (single_calculation)
+  subintervals_simpson = subintervals - mod(subintervals, 2);
+  if (mod(subintervals, 2) ~= 0)
+    fprintf("Warning: not using a multiple-of-2 number of subintervals, now using %G subintervals to execute Simpson properly", subintervals_simpson );
   end
 
-  x = linspace(a, b, nodes_simpson);
+  x = linspace(a, b, subintervals_simpson);
   y = f(x);
 
   best_simpson = formula_simpson_composite(x(2) - x(1), y);
 
 else
-  for i = 2:nodes/2
+  for i = 2:subintervals/2
 
     x = linspace(a, b, i*2);
     y = f(x);
@@ -100,24 +100,24 @@ else
   end % !for
   best_simpson = sols_simpson(end);
 end % !if
-fprintf("Simpson with %G nodes: %G\n", nodes_simpson, best_simpson);
+fprintf("Simpson with %G subintervals: %G\n", subintervals_simpson, best_simpson);
 fprintf("Simpson: end of calculations");
 
 
 % Show errors
 fprintf("\nErrors:\n");
-fprintf("Err(Trapezium) = %G [%G nodes]\n", true_value - best_trapezium, nodes);
-fprintf("Err(Simpson) = %G [%G nodes]\n", true_value - best_simpson, nodes_simpson);
+fprintf("Err(Trapezium) = %G [%G subintervals]\n", true_value - best_trapezium, subintervals);
+fprintf("Err(Simpson) = %G [%G subintervals]\n", true_value - best_simpson, subintervals_simpson);
 
-% Errors (with 1E+04 nodes):
+% Errors (with 1E+04 subintervals):
 % Err(Trapezium) = -7.25529E-10
 % Err(Simpson) = 8.00155E-06
 
-% Errors (with 1E+05 nodes):
+% Errors (with 1E+05 subintervals):
 % Err(Trapezium) = -6.56952E-12
 % Err(Simpson) = 8.00016E-07
 
-% Errors (with 1E+07 nodes):
+% Errors (with 1E+07 subintervals):
 % Err(Trapezium) = -9.06071E-11
 % Err(Simpson) = 7.90936E-09
 
