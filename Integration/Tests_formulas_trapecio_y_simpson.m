@@ -1,6 +1,6 @@
 % Autor: Echedey Luis Álvarez
 % Fecha: 11/05/2021
-% 
+%
 % Tests para: Fórmula del Trapecio Compuesta y Fórmula de Simpson Compuesta
 
 % Clear workspace and screen, set up format configuration
@@ -13,7 +13,7 @@ calculate_single_node_number = true;
   % True: calculates just with the given number of nodes (recommended)
   % False: calculates for nodes = 2:[1 or 2]:nodes (not recommended, uses up too much memory)
 show_sols = false;
-  % Lets you fprintflay all calculated aproximations (not recommended, used for debugging)
+  % Lets you display all calculated aproximations (not recommended, used for debugging)
 
 % Función a integrar
 f = @(x) 1 ./ (1 + x .^ 2);
@@ -49,17 +49,17 @@ if (calculate_single_node_number)
   y = f(x);
 
   best_trapezium = formula_trapezium_composite(x(2) - x(1), y);
-  
+
 else
   for i = 2:nodes
-    
+
     x = linspace(a, b, i);
     y = f(x);
 
     valor = formula_trapezium_composite(x(2) - x(1), y);
-    
+
     sols_trapezium(i-1, :) = [i, valor];
-    
+
     if (show_sols)
       fprintf(sols_trapezium);
     end
@@ -77,7 +77,7 @@ if (calculate_single_node_number)
   if (mod(nodes, 2) ~= 0)
     fprintf("Warning: not using a multiple-of-2 number of nodes, now using %G nodes to execute Simpson properly", nodes_simpson );
   end
-  
+
   x = linspace(a, b, nodes_simpson);
   y = f(x);
 
@@ -85,14 +85,14 @@ if (calculate_single_node_number)
 
 else
   for i = 2:nodes/2
-    
+
     x = linspace(a, b, i*2);
     y = f(x);
 
     valor = formula_simpson_composite(x(2) - x(1), y);
-    
+
     sols_simpson(i-1, :) = [i*2, valor];
-    
+
     if (show_sols)
       fprintf(sols_simpson);
     end
