@@ -12,8 +12,8 @@ Argumentos:
 Salida:
   aprox: valor aproximado de la integral
 %}
-if ( mod(size( y ), 2) == 1)
-  error("formula_simpson_composite: Number of nodes must be even.");
+if ( mod(size( y ), 2) == 0)
+  error("formula_simpson_composite: Number of nodes must be odd (to match an even number of subintervals).");
 end
 
 aprox = ( h / 3 ) * ( y(1) + y(end) + 4 * sum( y( 2:2:end-1 ) ) + 2 * sum( ( y(3:2:end-2 ) ) ) );
