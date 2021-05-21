@@ -1,7 +1,7 @@
-% Autor: Echedey Luis Álvarez
-% Fecha: 21/05/2021
+% Author: Echedey Luis Álvarez
+% Date: 21/05/2021
 % 
-% Aplicación general de aproximación de ec. diferenciales por el método de Euler
+% Abstract: Aplicación general de aproximación de ec. diferenciales por el método de Euler
 
 function E = euler( f, a, b, y_a, M )
 %{
@@ -16,6 +16,9 @@ function E = euler( f, a, b, y_a, M )
         E(:,2): independent value (t_k, x_k)
         E(:,3): dependent value (y_k)
 %}
+
+
+
     h = (b - a) ./ M; disp(h);
     E = NaN( [M+1, 3] );
     E(1, :) = [0, a, y_a];
