@@ -7,9 +7,9 @@ function E = euler( f, a, b, y_a, M )
 %{
     Args:
       f: 2-vars anonym function which represents explicitly the derivative of y
-      a & b: begin and end of interval of aproximation
+      a & b: begin and end of interval
       y_a: known value of f, f(a)
-      M: desired number of iterations
+      M: desired number of iterations. M gets rounded to the nearest int32
     Output:
       E: (M+1) x 3 matrix
         E(:,1): index column (first one is 0)
@@ -17,9 +17,15 @@ function E = euler( f, a, b, y_a, M )
         E(:,3): dependent value (y_k)
 %}
 
+    if ( a >= b )
+      error("Cannot aproximate within given interval");
+    endif
+    M = double ( uint32 (M) );
+    if (M == 0)
+      error("Number of iterations must be a natural number");
+    endif
 
-
-    h = (b - a) ./ M; disp(h);
+    h = (b - a) / M;
     E = NaN( [M+1, 3] );
     E(1, :) = [0, a, y_a];
     for j=1:M
