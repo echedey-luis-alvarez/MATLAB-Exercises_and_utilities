@@ -49,9 +49,15 @@ y = y_sol (t);
 % Aproximaciones
 subplot (nx_plots, ny_plots, 1);
 plot(t, y, 'r', E10(:,2), E10(:,3), 'b- ' , "LineWidth", 2 );
+title("Metodo de Euler");
+grid on;
 
 subplot (nx_plots, ny_plots, 2);
 plot(t, y, 'r', E20(:,2), E20(:,3), 'b- ' , "LineWidth", 2 );
+title("Metodo de Euler modificado");
+grid on;
 
 subplot (nx_plots, ny_plots, 3);
 plot(t, y, 'r', E30(:,2), E30(:,3), 'b- ' , "LineWidth", 2 );
+title("Metodo de Heun");
+grid on;

@@ -30,6 +30,8 @@ function E = euler_mod( f, a, b, y_a, M )
     E = NaN( [M+1, 3] );
     E(1, :) = [0, a, y_a];
     for j=1:M
-      E(j+1, :) = [ j, a + j .* h, E(j,3) + h * f( E(j, 2) + h/2, E(j, 3) + h/2 * f( E(j, 2), E(j, 3) ) ) ];
+      f1 = f( E(j, 2), E(j, 3) );
+      f2 = f( E(j, 2) + h/2, E(j, 3) + h/2 * f1 );
+      E(j+1, :) = [ j, a + j .* h, E(j,3) + h * f2 ];
     end % !for
 end % !if
