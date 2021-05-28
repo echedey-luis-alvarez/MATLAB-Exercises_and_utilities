@@ -19,11 +19,11 @@ function E = euler( f, a, b, y_a, M )
 
     if ( a >= b )
       error("Cannot aproximate within given interval");
-    endif
+    end
     M = double ( uint32 (M) );
     if (M == 0)
       error("Number of iterations must be a natural number");
-    endif
+    end
 
     h = (b - a) / M;
     E = NaN( [M+1, 3] );

@@ -1,6 +1,6 @@
 % Author: Echedey Luis Álvarez
 % Date: 25/05/2021
-% 
+%
 % Abstract: Aplicación general de aproximación de ec. diferenciales por el método de Heun
 %   Se utiliza la media de las pendientes en  t_k y t_(k+1)
 
@@ -20,11 +20,11 @@ function E = euler_mod( f, a, b, y_a, M )
 
     if ( a >= b )
       error("Cannot aproximate within given interval");
-    endif
+    end
     M = double ( uint32 (M) );
     if (M == 0)
       error("Number of iterations must be a natural number");
-    endif
+    end
 
     h = (b - a) / M;
     E = NaN( [M+1, 3] );
